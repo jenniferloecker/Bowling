@@ -2,22 +2,30 @@ import { types } from "mobx-state-tree";
 
 const Frame = types
   .model({
-    score: 0,
-    roll: 0,
-    strike: false,
-    spare: false,
+    roll1: types.maybeNull(types.number, null),
+    roll2: types.maybeNull(types.number, null),
+    roll3: types.maybeNull(types.number, null),
   })
   .views((self) => ({
     shouldGetNextFrame() {
       return false;
     },
+    isStrike() {
+      return roll1 === 10;
+    },
+    isSpare() {
+      return roll1 + roll2 === 10;
+    },
   }))
   .actions((self) => ({
-    setScore(score) {
-      self.score = score;
+    setRoll1(roll1) {
+      self.roll1 = roll1;
     },
-    nextFrameRoll(rollScore) {
-      self.name = newName;
+    setRoll2(roll2) {
+      self.roll2 = roll2;
+    },
+    setRoll3(roll3) {
+      self.roll3 = roll3;
     },
   }));
 
