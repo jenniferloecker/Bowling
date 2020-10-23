@@ -17,18 +17,20 @@ export const Frame = types
       return self.roll1 + self.roll2 === 10;
     }
     function frameIsFinished() {
-      return isStrike() || self.roll2 !== null;
+      if (isStrike()) return true;
+      else return self.roll2 !== null;
     }
-    return { frameIsFinished };
+    return { isStrike, frameIsFinished };
   })
-  .actions((self) => ({
-    setRoll1(roll1) {
+  .actions((self) => {
+    function setRoll1(roll1) {
       self.roll1 = roll1;
-    },
-    setRoll2(roll2) {
+    }
+    function setRoll2(roll2) {
       self.roll2 = roll2;
-    },
-    setRoll3(roll3) {
+    }
+    function setRoll3(roll3) {
       self.roll3 = roll3;
-    },
-  }));
+    }
+    return { setRoll1, setRoll2, setRoll3 };
+  });

@@ -19,19 +19,28 @@ export const Game = types
       return 300;
     }
     function previousFrame() {
-      return self.frames.pop();
+      return self.frames[self.frames.length - 1];
     }
     function shouldMakeNewFrame() {
-      const lastFrame = self.previousFrame();
+      if (self.frames.length === 0) return true;
+      const lastFrame = previousFrame();
       return lastFrame.frameIsFinished();
     }
-    return { calculateGameScore };
+    return { previousFrame, shouldMakeNewFrame, calculateGameScore };
   })
   .actions((self) => {
     function addNewScore(score) {
-      const newFrame = Frame.create();
-      newFrame.setRoll1(score);
-      self.frames.push(newFrame);
+      if (self.shouldMakeNewFrame()) {
+        let newFrame = Frame.create();
+        newFrame.setRoll1(score);
+        self.frames.push(newFrame);
+      } else {
+        let frameToAddTo = self.previousFrame();
+        frameToAddTo.setRoll2(score);
+      }
     }
-    return { addNewScore };
+    function setFrames(frameArray) {
+      self.frames = frameArray;
+    }
+    return { addNewScore, setFrames };
   });
