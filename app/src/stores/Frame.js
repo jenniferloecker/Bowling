@@ -1,22 +1,26 @@
 import { types } from "mobx-state-tree";
 
-const Frame = types
+export const Frame = types
   .model({
     roll1: types.maybeNull(types.number, null),
     roll2: types.maybeNull(types.number, null),
     roll3: types.maybeNull(types.number, null),
   })
-  .views((self) => ({
-    shouldGetNextFrame() {
+  .views((self) => {
+    function shouldGetNextFrame() {
       return false;
-    },
-    isStrike() {
-      return roll1 === 10;
-    },
-    isSpare() {
-      return roll1 + roll2 === 10;
-    },
-  }))
+    }
+    function isStrike() {
+      return self.roll1 === 10;
+    }
+    function isSpare() {
+      return self.roll1 + self.roll2 === 10;
+    }
+    function frameIsFinished() {
+      return isStrike() || self.roll2 !== null;
+    }
+    return { frameIsFinished };
+  })
   .actions((self) => ({
     setRoll1(roll1) {
       self.roll1 = roll1;
@@ -28,5 +32,3 @@ const Frame = types
       self.roll3 = roll3;
     },
   }));
-
-export default Frame;

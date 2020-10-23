@@ -1,26 +1,37 @@
 import { types } from "mobx-state-tree";
-import Frame from "./Frame";
+import { Frame } from "./Frame";
 
-const Game = types
-  .model("Game", {
-    score: 0,
-    frames: types.array(Frame),
+export const Game = types
+  .model({
+    frames: types.optional(types.array(Frame), []),
   })
-  .views((self) => ({
-    currentFrame() {
+  .views((self) => {
+    function currentFrame() {
       return self.frames.length;
-    },
-    isTenthFrame() {
+    }
+    function isTenthFrame() {
       return false;
-    },
-    shouldGetExtraRollInTenth() {
+    }
+    function shouldGetExtraRollInTenth() {
       return false;
-    },
-  }))
-  .actions((self) => ({
-    addNewScoreToFrame(score) {
-      frames[0].setScore(score);
-    },
-  }));
-
-export default Game;
+    }
+    function calculateGameScore() {
+      return 300;
+    }
+    function previousFrame() {
+      return self.frames.pop();
+    }
+    function shouldMakeNewFrame() {
+      const lastFrame = self.previousFrame();
+      return lastFrame.frameIsFinished();
+    }
+    return { calculateGameScore };
+  })
+  .actions((self) => {
+    function addNewScore(score) {
+      const newFrame = Frame.create();
+      newFrame.setRoll1(score);
+      self.frames.push(newFrame);
+    }
+    return { addNewScore };
+  });

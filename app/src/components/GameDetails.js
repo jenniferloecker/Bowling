@@ -7,13 +7,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameDetails = () => {
+const GameDetails = ({ currentGame }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <h1>Game Details:</h1>
       <t />
-      <h3>Current Score: 50</h3>
+      <h3>Current Score: {currentGame.calculateGameScore()}</h3>
       <t />
       <h3>Current Frame: 5</h3>
       <t />
