@@ -8,7 +8,7 @@ const currentGame = Game.create();
 const MainDisplay = () => {
   return (
     <React.Fragment>
-      <ScoreEntry />
+      <ScoreEntry currentGame={currentGame} />
       <GameDetails currentGame={currentGame} />
     </React.Fragment>
   );
