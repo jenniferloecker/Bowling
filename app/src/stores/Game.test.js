@@ -1,18 +1,7 @@
 import { Game } from "./Game";
+import { startingFrames } from "./StartingFrames";
 
 const currentGame = Game.create();
-const startingFrames = [
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-  { roll1: null, roll2: null, roll3: null },
-];
 
 it("it can return the current frame", () => {
   expect(currentGame.currentFrame()).toBe(0);
@@ -65,27 +54,66 @@ it("it can add a new score", () => {
   expect(currentGame.frames[4].roll2).toBe(1);
 });
 
-it("it can calculate a running score", () => {
+it("it can add a new score", () => {
+  currentGame.setFrames(startingFrames);
   currentGame.addNewScore(5);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[0].roll1).toBe(5);
   currentGame.addNewScore(4);
-  expect(currentGame.calculateGameScore()).toBe(9);
+  expect(currentGame.frames[0].roll2).toBe(4);
   currentGame.addNewScore(10);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[1].roll1).toBe(10);
+  expect(currentGame.frames[1].roll2).toBe(null);
   currentGame.addNewScore(0);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[2].roll1).toBe(0);
   currentGame.addNewScore(6);
-  expect(currentGame.calculateGameScore()).toBe(31);
+  expect(currentGame.frames[2].roll2).toBe(6);
   currentGame.addNewScore(0);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[3].roll1).toBe(0);
   currentGame.addNewScore(0);
-  expect(currentGame.calculateGameScore()).toBe(31);
+  expect(currentGame.frames[3].roll2).toBe(0);
   currentGame.addNewScore(9);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[4].roll1).toBe(9);
   currentGame.addNewScore(1);
-  expect(currentGame.calculateGameScore()).toBe(null);
+  expect(currentGame.frames[4].roll2).toBe(1);
+});
+
+it("it can add additional rolls to previous frames", () => {
+  currentGame.setFrames(startingFrames);
+  currentGame.addNewScore(7);
+  currentGame.addNewScore(3);
   currentGame.addNewScore(4);
-  expect(currentGame.calculateGameScore()).toBe(null);
-  currentGame.addNewScore(4);
-  expect(currentGame.calculateGameScore()).toBe(53);
+  expect(currentGame.frames[0].additionalRoll1).toBe(4);
+  currentGame.addNewScore(5);
+  expect(currentGame.frames[0].additionalRoll2).toBe(5);
+
+  currentGame.addNewScore(10);
+  expect(currentGame.frames[0].additionalRoll1).toBe(4);
+  expect(currentGame.frames[0].additionalRoll2).toBe(5);
+  expect(currentGame.frames[1].additionalRoll1).toBe(10);
+
+  currentGame.addNewScore(10);
+  expect(currentGame.frames[0].additionalRoll1).toBe(4);
+  expect(currentGame.frames[0].additionalRoll2).toBe(5);
+  expect(currentGame.frames[1].additionalRoll1).toBe(10);
+  expect(currentGame.frames[1].additionalRoll2).toBe(10);
+  expect(currentGame.frames[2].additionalRoll1).toBe(10);
+
+  currentGame.addNewScore(1);
+  expect(currentGame.frames[0].additionalRoll1).toBe(4);
+  expect(currentGame.frames[0].additionalRoll2).toBe(5);
+  expect(currentGame.frames[1].additionalRoll1).toBe(10);
+  expect(currentGame.frames[1].additionalRoll2).toBe(10);
+  expect(currentGame.frames[2].additionalRoll1).toBe(10);
+  expect(currentGame.frames[2].additionalRoll2).toBe(1);
+  expect(currentGame.frames[3].additionalRoll1).toBe(1);
+
+  currentGame.addNewScore(2);
+  expect(currentGame.frames[0].additionalRoll1).toBe(4);
+  expect(currentGame.frames[0].additionalRoll2).toBe(5);
+  expect(currentGame.frames[1].additionalRoll1).toBe(10);
+  expect(currentGame.frames[1].additionalRoll2).toBe(10);
+  expect(currentGame.frames[2].additionalRoll1).toBe(10);
+  expect(currentGame.frames[2].additionalRoll2).toBe(1);
+  expect(currentGame.frames[3].additionalRoll1).toBe(1);
+  expect(currentGame.frames[3].additionalRoll2).toBe(2);
 });

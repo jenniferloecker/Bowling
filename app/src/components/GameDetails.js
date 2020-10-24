@@ -14,7 +14,7 @@ const GameDetails = ({ currentGame }) => {
   return (
     <div className={classes.root}>
       {currentGame.frames.map((frame, index) => (
-        <FrameDetails frame={frame} index={index} />
+        <FrameDetails key={index} frame={frame} index={index} />
       ))}
     </div>
   );
