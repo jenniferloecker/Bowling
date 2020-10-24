@@ -1,18 +1,49 @@
 import { Game } from "./Game";
 
-it("it can test whether to make a new frame", () => {
-  const currentGame = Game.create();
-  expect(currentGame.shouldMakeNewFrame()).toBe(true);
-  currentGame.setFrames([{ roll1: 8 }]);
-  expect(currentGame.shouldMakeNewFrame()).toBe(false);
-  currentGame.setFrames([{ roll1: 8, roll2: 2 }]);
-  expect(currentGame.shouldMakeNewFrame()).toBe(true);
-  currentGame.setFrames([{ roll1: 10 }]);
-  expect(currentGame.shouldMakeNewFrame()).toBe(true);
+const currentGame = Game.create();
+const startingFrames = [
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+  { roll1: null, roll2: null, roll3: null },
+];
+
+it("it can return the current frame", () => {
+  expect(currentGame.currentFrame()).toBe(0);
+  currentGame.setFrames([{ roll1: 5 }]);
+  expect(currentGame.currentFrame()).toBe(0);
+  currentGame.setFrames([{ roll1: 5, roll2: 4 }, { roll1: null }]);
+  expect(currentGame.currentFrame()).toBe(1);
+  currentGame.setFrames([
+    { roll1: 5, roll2: 4 },
+    { roll1: 10, roll2: null },
+    { roll1: null },
+  ]);
+  expect(currentGame.currentFrame()).toBe(2);
+  currentGame.setFrames([
+    { roll1: 5, roll2: 4 },
+    { roll1: 10, roll2: null },
+    { roll1: 0, rolll2: null },
+  ]);
+  expect(currentGame.currentFrame()).toBe(2);
+  currentGame.setFrames([
+    { roll1: 5, roll2: 4 },
+    { roll1: 10, roll2: null },
+    { roll1: 0, roll2: 6 },
+    { roll1: null, roll2: null },
+    { roll1: null, roll2: null },
+  ]);
+  expect(currentGame.currentFrame()).toBe(3);
 });
 
 it("it can add a new score", () => {
-  const currentGame = Game.create();
+  currentGame.setFrames(startingFrames);
   currentGame.addNewScore(5);
   expect(currentGame.frames[0].roll1).toBe(5);
   currentGame.addNewScore(4);
@@ -35,7 +66,26 @@ it("it can add a new score", () => {
 });
 
 it("it can calculate a running score", () => {
-  const currentGame = Game.create();
   currentGame.addNewScore(5);
-  expect(currentGame.calculateGameScore()).toBe(5);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(4);
+  expect(currentGame.calculateGameScore()).toBe(9);
+  currentGame.addNewScore(10);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(0);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(6);
+  expect(currentGame.calculateGameScore()).toBe(31);
+  currentGame.addNewScore(0);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(0);
+  expect(currentGame.calculateGameScore()).toBe(31);
+  currentGame.addNewScore(9);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(1);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(4);
+  expect(currentGame.calculateGameScore()).toBe(null);
+  currentGame.addNewScore(4);
+  expect(currentGame.calculateGameScore()).toBe(53);
 });

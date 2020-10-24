@@ -17,3 +17,15 @@ it("can return if the frame is finished", () => {
   currentFrame.setRoll2(2);
   expect(currentFrame.frameIsFinished()).toBe(true);
 });
+
+it("can calculate the frame Score", () => {
+  const currentFrame = Frame.create();
+  expect(currentFrame.frameScore()).toBe(0);
+  currentFrame.setRoll1(10);
+  expect(currentFrame.frameScore()).toBe(10);
+  currentFrame.setRoll1(2);
+  currentFrame.setRoll2(6);
+  expect(currentFrame.frameScore()).toBe(8);
+  currentFrame.setRoll3(2);
+  expect(currentFrame.frameScore()).toBe(10);
+});

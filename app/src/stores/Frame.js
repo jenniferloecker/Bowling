@@ -14,13 +14,26 @@ export const Frame = types
       return self.roll1 === 10;
     }
     function isSpare() {
-      return self.roll1 + self.roll2 === 10;
+      if (self.roll1 !== null && self.roll2 !== null)
+        return self.roll1 + self.roll2 === 10;
+      else return false;
+    }
+    function frameScore() {
+      if (self.roll1 !== null && self.roll2 !== null && self.roll3 !== null) {
+        return self.roll1 + self.roll2 + self.roll3;
+      } else if (self.roll1 !== null && self.roll2 !== null) {
+        return self.roll1 + self.roll2;
+      } else if (self.roll1 !== null) {
+        return self.roll1;
+      } else {
+        return 0;
+      }
     }
     function frameIsFinished() {
       if (isStrike()) return true;
       else return self.roll2 !== null;
     }
-    return { isStrike, frameIsFinished };
+    return { isStrike, frameIsFinished, frameScore, isSpare };
   })
   .actions((self) => {
     function setRoll1(roll1) {

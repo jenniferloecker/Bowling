@@ -2,6 +2,7 @@ import React from "react";
 import GameDetails from "./GameDetails";
 import ScoreEntry from "./ScoreEntry";
 import { Game } from "../stores/Game";
+import { observer } from "mobx-react";
 
 const currentGame = Game.create();
 
@@ -14,4 +15,4 @@ const MainDisplay = () => {
   );
 };
 
-export default MainDisplay;
+export default observer(MainDisplay);

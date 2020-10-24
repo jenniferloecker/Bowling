@@ -3,11 +3,32 @@ import { Frame } from "./Frame";
 
 export const Game = types
   .model({
-    frames: types.optional(types.array(Frame), []),
+    frames: types.optional(types.array(Frame), [
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+      Frame.create(),
+    ]),
   })
   .views((self) => {
     function currentFrame() {
-      return self.frames.length;
+      for (var i = 0; i < self.frames.length; i++) {
+        if (self.frames[i].roll1 !== null && self.frames[i].roll2 !== null)
+          continue;
+        if (self.frames[i].roll1 === 10) continue;
+
+        if (self.frames[i].roll1 == null) {
+          return i;
+        } else if (self.frames[i].roll2 == null) {
+          return i;
+        }
+      }
     }
     function isTenthFrame() {
       return false;
@@ -16,26 +37,27 @@ export const Game = types
       return false;
     }
     function calculateGameScore() {
-      return 300;
+      let gameScore = 0;
+      if (self.frames.length === 0) {
+        return gameScore;
+      } else {
+        gameScore += self.frames.map((frame, index) => {
+          return frame.frameScore();
+        });
+        return gameScore;
+      }
     }
-    function previousFrame() {
+    function lastFrame() {
       return self.frames[self.frames.length - 1];
     }
-    function shouldMakeNewFrame() {
-      if (self.frames.length === 0) return true;
-      const lastFrame = previousFrame();
-      return lastFrame.frameIsFinished();
-    }
-    return { previousFrame, shouldMakeNewFrame, calculateGameScore };
+    return { lastFrame, calculateGameScore, currentFrame };
   })
   .actions((self) => {
     function addNewScore(score) {
-      if (self.shouldMakeNewFrame()) {
-        let newFrame = Frame.create();
-        newFrame.setRoll1(score);
-        self.frames.push(newFrame);
-      } else {
-        let frameToAddTo = self.previousFrame();
+      let frameToAddTo = self.frames[self.currentFrame()];
+      if (frameToAddTo.roll1 === null) {
+        frameToAddTo.setRoll1(score);
+      } else if (frameToAddTo.roll2 === null) {
         frameToAddTo.setRoll2(score);
       }
     }
