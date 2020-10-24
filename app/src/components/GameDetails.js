@@ -14,48 +14,95 @@ const GameDetails = ({ currentGame }) => {
   return (
     <div className={classes.root}>
       <h1>Game:</h1>
-
-      <h3>Frame 1</h3>
-      <h5>1:{currentGame.frames[0].roll1}</h5>
-      <h5>2:{currentGame.frames[0].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 2</h3>
-      <h5>1:{currentGame.frames[1].roll1}</h5>
-      <h5>2:{currentGame.frames[1].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 3</h3>
-      <h5>1:{currentGame.frames[2].roll1}</h5>
-      <h5>2:{currentGame.frames[2].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 4</h3>
-      <h5>1:{currentGame.frames[3].roll1}</h5>
-      <h5>2:{currentGame.frames[3].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 5</h3>
-      <h5>1:{currentGame.frames[4].roll1}</h5>
-      <h5>2:{currentGame.frames[4].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 6</h3>
-      <h5>1:{currentGame.frames[5].roll1}</h5>
-      <h5>2:{currentGame.frames[5].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 7</h3>
-      <h5>1:{currentGame.frames[6].roll1}</h5>
-      <h5>2:{currentGame.frames[6].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 8</h3>
-      <h5>1:{currentGame.frames[7].roll1}</h5>
-      <h5>2:{currentGame.frames[7].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 9</h3>
-      <h5>1:{currentGame.frames[8].roll1}</h5>
-      <h5>2:{currentGame.frames[8].roll2}</h5>
-      <h5>Score:</h5>
-      <h3>Frame 10</h3>
-      <h5>1:{currentGame.frames[9].roll1}</h5>
-      <h5>2:{currentGame.frames[9].roll2}</h5>
-      <h5>3:{currentGame.frames[9].roll3}</h5>
-      <h5>Score:</h5>
+      <u>Frame 1</u> <br />
+      1:{currentGame.frames[0].roll1} <br />
+      2:{currentGame.frames[0].roll2} <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 2</u>
+      <br />
+      1:{currentGame.frames[1].roll1}
+      <br />
+      2:{currentGame.frames[1].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 3</u>
+      <br />
+      1:{currentGame.frames[2].roll1}
+      <br />
+      2:{currentGame.frames[2].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 4</u>
+      <br />
+      1:{currentGame.frames[3].roll1}
+      <br />
+      2:{currentGame.frames[3].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 5</u>
+      <br />
+      1:{currentGame.frames[4].roll1}
+      <br />
+      2:{currentGame.frames[4].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 6</u>
+      <br />
+      1:{currentGame.frames[5].roll1}
+      <br />
+      2:{currentGame.frames[5].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 7</u>
+      <br />
+      1:{currentGame.frames[6].roll1}
+      <br />
+      2:{currentGame.frames[6].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 8</u>
+      <br />
+      1:{currentGame.frames[7].roll1}
+      <br />
+      2:{currentGame.frames[7].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 9</u>
+      <br />
+      1:{currentGame.frames[8].roll1}
+      <br />
+      2:{currentGame.frames[8].roll2}
+      <br />
+      Score:
+      <br />
+      <br />
+      <u>Frame 10</u>
+      <br />
+      1:{currentGame.frames[9].roll1}
+      <br />
+      2:{currentGame.frames[9].roll2}
+      <br />
+      3:{currentGame.frames[9].roll3}
+      <br />
+      Score:
+      <br />
+      <br />
     </div>
   );
 };
