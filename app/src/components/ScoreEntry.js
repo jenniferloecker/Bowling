@@ -14,16 +14,33 @@ const useStyles = makeStyles((theme) => ({
 
 const ScoreEntry = ({ currentGame }) => {
   const [newValue, setNewValue] = useState("");
+  const [error, setError] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const classes = useStyles();
   const handleSubmit = (event) => {
+    let rollMax = currentGame.nextRollMax();
     event.preventDefault();
-    currentGame.addNewScore(Number(newValue));
+    if (newValue <= rollMax && newValue >= 0) {
+      setErrorText("");
+      setError(false);
+      currentGame.addNewScore(Number(newValue));
+    } else {
+      setErrorText(
+        "Next roll must be equal or less than " +
+          rollMax +
+          " and greater than 0"
+      );
+      setError(true);
+    }
     setNewValue("");
   };
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <TextField
+        error={error}
+        helperText={errorText}
         className={classes.textField}
+        type="number"
         label="Enter the next roll score:"
         value={newValue}
         onInput={(e) => setNewValue(e.target.value)}

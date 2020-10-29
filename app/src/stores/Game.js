@@ -31,6 +31,14 @@ export const Game = types
         }
       }
     }
+    function nextRollMax() {
+      const currentFrame = self.frames[self.currentFrame()];
+      if (currentFrame.roll1 !== null && currentFrame.roll1 < 10) {
+        return 10 - currentFrame.roll1;
+      } else {
+        return 10;
+      }
+    }
     function calculateGameScores() {
       self.runningScore = 0;
       for (var i = 0; i < self.frames.length; i++) {
@@ -44,7 +52,7 @@ export const Game = types
     function lastFrame() {
       return self.frames[self.frames.length - 1];
     }
-    return { lastFrame, calculateGameScores, currentFrame };
+    return { lastFrame, calculateGameScores, currentFrame, nextRollMax };
   })
   .actions((self) => {
     function addNewScore(score) {
