@@ -8,6 +8,7 @@ const FrameDetails = ({ frame, index }) => {
       <u>Frame {index + 1} </u> <br />
       1: {frame.roll1} <br />
       2: {frame.roll2} <br />
+      {index === 9 && <div>3: {frame.roll3}</div>}
       Score:{frameCumulativeScore}
       <br />
       <br />

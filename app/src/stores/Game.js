@@ -20,13 +20,23 @@ export const Game = types
   .views((self) => {
     function currentFrame() {
       for (var i = 0; i < self.frames.length; i++) {
-        if (self.frames[i].roll1 !== null && self.frames[i].roll2 !== null)
+        const frame = self.frames[i];
+        if (frame.roll1 !== null && frame.roll2 !== null && i !== 9) {
           continue;
-        if (self.frames[i].roll1 === 10) continue;
-
-        if (self.frames[i].roll1 == null) {
+        }
+        if (frame.roll1 == null) {
           return i;
-        } else if (self.frames[i].roll2 == null) {
+        }
+        if (frame.roll1 === 10 && i !== 9) {
+          continue;
+        }
+        if (frame.roll2 === null) {
+          return i;
+        }
+        if (
+          (i === 9) & (frame.roll3 == null) &&
+          (frame.isStrike() || frame.isSpare)
+        ) {
           return i;
         }
       }
@@ -62,6 +72,11 @@ export const Game = types
         frameToAddTo.setRoll1(score);
       } else if (frameToAddTo.roll2 === null) {
         frameToAddTo.setRoll2(score);
+      } else if (
+        currentFrameNumber === 9 &&
+        (frameToAddTo.isStrike() || frameToAddTo.isSpare)
+      ) {
+        frameToAddTo.setRoll3(score);
       }
       addToPreviousFrames(currentFrameNumber, score);
       self.calculateGameScores();
