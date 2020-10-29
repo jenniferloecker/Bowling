@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { observer } from "mobx-react";
 import FrameDetails from "./FrameDetails";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
 const GameDetails = ({ currentGame }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Grid container className={classes.root} spacing={2}>
       {currentGame.frames.map((frame, index) => (
         <FrameDetails key={index} frame={frame} index={index} />
       ))}
-    </div>
+    </Grid>
   );
 };
 

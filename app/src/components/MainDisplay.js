@@ -3,6 +3,7 @@ import GameDetails from "./GameDetails";
 import ScoreEntry from "./ScoreEntry";
 import { Game } from "../stores/Game";
 import { observer } from "mobx-react";
+import GameOverDisplay from "./GameOverDisplay";
 
 const currentGame = Game.create();
 
@@ -11,6 +12,7 @@ const MainDisplay = () => {
     <React.Fragment>
       <ScoreEntry currentGame={currentGame} />
       <GameDetails currentGame={currentGame} />
+      <GameOverDisplay />
     </React.Fragment>
   );
 };

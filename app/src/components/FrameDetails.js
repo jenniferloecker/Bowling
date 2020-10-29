@@ -1,10 +1,11 @@
 import React from "react";
 import { observer } from "mobx-react";
+import Grid from "@material-ui/core/Grid";
 
 const FrameDetails = ({ frame, index }) => {
   const frameCumulativeScore = frame.cumulativeScore;
   return (
-    <div>
+    <Grid item>
       <u>Frame {index + 1} </u> <br />
       1: {frame.roll1} <br />
       2: {frame.roll2} <br />
@@ -12,7 +13,7 @@ const FrameDetails = ({ frame, index }) => {
       Score:{frameCumulativeScore}
       <br />
       <br />
-    </div>
+    </Grid>
   );
 };
 
