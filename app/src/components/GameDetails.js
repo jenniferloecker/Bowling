@@ -12,9 +12,10 @@ const useStyles = makeStyles((theme) => ({
 
 const GameDetails = ({ currentGame }) => {
   const classes = useStyles();
+  const frames = Array.from(currentGame.frames.values());
   return (
     <Grid container className={classes.root} spacing={2}>
-      {currentGame.frames.map((frame, index) => (
+      {frames.map((frame, index) => (
         <FrameDetails key={index} frame={frame} index={index} />
       ))}
     </Grid>

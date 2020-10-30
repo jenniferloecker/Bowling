@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -8,15 +8,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameOverDisplay = () => {
+const GameOverDisplay = ({ currentGame, startOver }) => {
   const classes = useStyles();
   return (
-    <Fragment className={classes.root}>
-      <div>Final Score: 300</div>
-      <Button variant="contained" color="primary">
+    <div className={classes.root}>
+      <div>Final Score: {currentGame.finalScore()}</div>
+      <Button variant="contained" color="primary" onClick={startOver}>
         Start Over
       </Button>
-    </Fragment>
+    </div>
   );
 };
 

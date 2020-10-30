@@ -35,7 +35,19 @@ export const Frame = types
         return null;
       }
     }
-    return { isStrike, frameScore, isSpare };
+    function tenthFrameScore() {
+      const allowThirdRoll = self.isSpare() || self.isStrike();
+      if (self.roll1 === null || self.roll2 === null) {
+        return null;
+      } else if (allowThirdRoll && self.roll3 === null) {
+        return null;
+      } else if (allowThirdRoll) {
+        return self.roll1 + self.roll2 + self.roll3;
+      } else {
+        return self.roll1 + self.roll2;
+      }
+    }
+    return { isStrike, frameScore, isSpare, tenthFrameScore };
   })
   .actions((self) => {
     function setRoll1(roll1) {
